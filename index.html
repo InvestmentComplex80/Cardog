@@ -1,22 +1,23 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="meow">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Cat & Dog (and More!)</title>
+  <title=Meow>Cat Chaos</title>
+  <link href="https://fonts.googleapis.com/css2?family=Comic+Neue:wght@700&display=swap" rel="stylesheet">
   <style>
     body {
-      font-family: 'Segoe UI', sans-serif;
+      font-family: 'Comic Neue', cursive;
       text-align: center;
       margin: 0;
       padding: 2em;
       transition: background-color 1s;
-      box-sizing: border-box;
+      background-color: #fff8dc;
     }
 
     h1 {
-      color: #222;
-      font-size: 1.8em;
+      color: #444;
+      font-size: 2em;
     }
 
     #catImage {
@@ -30,26 +31,27 @@
     }
 
     #catFact {
-      font-size: 1.1em;
-      color: #444;
+      font-size: 1.2em;
+      color: #333;
       margin: 1em auto;
       max-width: 90%;
     }
 
     button {
       margin-top: 1.5em;
-      padding: 12px 24px;
-      font-size: 1rem;
-      background-color: #ffb6c1;
+      padding: 14px 28px;
+      font-size: 1.1rem;
+      background-color: #ffc0cb;
       border: none;
-      border-radius: 8px;
+      border-radius: 10px;
       cursor: pointer;
-      box-shadow: 2px 2px 5px rgba(0,0,0,0.2);
-      transition: background-color 0.3s;
+      box-shadow: 2px 2px 5px rgba(0,0,0,0.3);
+      transition: background-color 0.3s, transform 0.2s;
     }
 
     button:hover {
-      background-color: #ff92a7;
+      background-color: #ff90b0;
+      transform: scale(1.05);
     }
 
     #hiddenMessage {
@@ -60,9 +62,21 @@
       visibility: hidden;
     }
 
+    a {
+      display: block;
+      margin-top: 20px;
+      font-size: 1.2em;
+      text-decoration: none;
+      color: #4b0082;
+    }
+
+    a:hover {
+      color: #ff4500;
+    }
+
     @media (max-width: 600px) {
       h1 {
-        font-size: 1.5em;
+        font-size: 1.6em;
       }
 
       button {
@@ -73,38 +87,53 @@
   </style>
 </head>
 <body>
-  <h1>Here's a Random Cat 🐱 (or Surprise Dog!)</h1>
-  <img id="catImage" src="" alt="Random Animal Image" />
+  <h1>Meowdom Generator 😼</h1>
+  <img id="catImage" src="" alt="Random Animal" />
   <div id="catFact"></div>
-  <button onclick="loadRandomAnimal()">Show Another Animal</button>
+  <button onclick="loadRandomAnimal()">Gib More Animol</button>
+  <a href="https://youtu.be/dQw4w9WgXcQ?si=oG6dNz8NlT0T429F" target="_blank">press me</a>
   <div id="hiddenMessage">oli is autistic</div>
 
   <audio id="meowSound" src="https://www.fesliyanstudios.com/play-mp3/6598" preload="auto"></audio>
 
+  <audio id="soundEffect1" src="https://www.fesliyanstudios.com/play-mp3/6526" preload="auto"></audio> <!-- boing -->
+  <audio id="soundEffect2" src="https://www.fesliyanstudios.com/play-mp3/6674" preload="auto"></audio> <!-- pop -->
+  <audio id="soundEffect3" src="https://www.fesliyanstudios.com/play-mp3/6616" preload="auto"></audio> <!-- meow -->
+
   <script>
     const facts = [
-      "Cats sleep for 70% of their lives.",
-      "A group of cats is called a clowder.",
-      "Cats can rotate their ears 180 degrees.",
-      "Lions are the only cats that live in groups.",
-      "A tiger’s stripes are like fingerprints.",
-      "Fat cats are often the result of too many treats!",
-      "Dogs can smell your feelings.",
-      "Isaac Newton invented the cat door.",
-      "Adult cats only meow to humans.",
-      "Dogs can understand over 1000 words."
+      "Meow is love. Meow is life.",
+      "Fluff level: over 9000!",
+      "Ragdoll cats go limp when picked up. True story!",
+      "Bunnies can't vomit. Cats can. Often on your pillow.",
+      "Fat cats roll for treats like logs.",
+      "Tigers are just spicy house cats.",
+      "Boop the snoot = instant joy.",
+      "Cats meow to control humans. And it works.",
+      "Floppy ears on a bunny = floppy heart in you.",
+      "The zoomies are real and they fear no furniture."
     ];
 
     const fatCats = [
-  "https://upload.wikimedia.org/wikipedia/commons/6/6c/Fat_cat_on_a_diet.jpg",
-  "https://upload.wikimedia.org/wikipedia/commons/2/2e/Fat_cat_sitting_on_bed.jpg"
-];
+      "https://upload.wikimedia.org/wikipedia/commons/6/6c/Fat_cat_on_a_diet.jpg",
+      "https://upload.wikimedia.org/wikipedia/commons/2/2e/Fat_cat_sitting_on_bed.jpg"
+    ];
 
-const bigCats = [
-  "https://upload.wikimedia.org/wikipedia/commons/7/73/Lion_waiting_in_Namibia.jpg",
-  "https://upload.wikimedia.org/wikipedia/commons/f/fd/Tiger_in_Ranthambhore.jpg",
-  "https://upload.wikimedia.org/wikipedia/commons/1/1f/Leopard_africa.jpg"
-];
+    const bigCats = [
+      "https://upload.wikimedia.org/wikipedia/commons/7/73/Lion_waiting_in_Namibia.jpg",
+      "https://upload.wikimedia.org/wikipedia/commons/f/fd/Tiger_in_Ranthambhore.jpg",
+      "https://upload.wikimedia.org/wikipedia/commons/1/1f/Leopard_africa.jpg"
+    ];
+
+    const ragdolls = [
+      "https://upload.wikimedia.org/wikipedia/commons/4/4d/Ragdoll_Seal_Mitted.jpg",
+      "https://upload.wikimedia.org/wikipedia/commons/e/e4/Ragdoll_Blue_Bicolor.jpg"
+    ];
+
+    const bunnies = [
+      "https://upload.wikimedia.org/wikipedia/commons/7/71/Cute_bunny.jpg",
+      "https://upload.wikimedia.org/wikipedia/commons/4/44/Bunny_in_grass.jpg",
+      "https://upload.wikimedia.org/wikipedia/commons/2/2f/Baby_rabbit.JPG"
     ];
 
     function getRandomColor() {
@@ -114,6 +143,13 @@ const bigCats = [
 
     function getRandomFact() {
       return facts[Math.floor(Math.random() * facts.length)];
+    }
+
+    function playRandomSoundEffect() {
+      const effects = ['soundEffect1', 'soundEffect2', 'soundEffect3'];
+      const choice = effects[Math.floor(Math.random() * effects.length)];
+      const audio = document.getElementById(choice);
+      audio.play().catch(() => {});
     }
 
     function loadRandomAnimal() {
@@ -126,28 +162,38 @@ const bigCats = [
 
       const chance = Math.random();
       let url = '';
-      let isCat = true;
+      let isCat = false;
 
       if (chance < 0.06) {
         url = `https://placedog.net/600/400?random&t=${Date.now()}`;
-        isCat = false;
-      } else if (chance < 0.16) {
-        url = bigCats[Math.floor(Math.random() * bigCats.length)];
       } else if (chance < 0.26) {
+        url = bunnies[Math.floor(Math.random() * bunnies.length)];
+      } else if (chance < 0.41) {
+        url = ragdolls[Math.floor(Math.random() * ragdolls.length)];
+        isCat = true;
+      } else if (chance < 0.51) {
+        url = bigCats[Math.floor(Math.random() * bigCats.length)];
+        isCat = true;
+      } else if (chance < 0.61) {
         url = fatCats[Math.floor(Math.random() * fatCats.length)];
+        isCat = true;
       } else {
         url = `https://cataas.com/cat?${Date.now()}`;
+        isCat = true;
       }
 
       img.onload = () => {
         img.style.opacity = 1;
       };
+
+      img.onerror = () => {
+        img.src = "https://placekitten.com/600/400";
+      };
+
       img.src = url;
 
-      if (isCat) {
-        meow.play().catch(() => {});
-      }
-
+      if (isCat) meow.play().catch(() => {});
+      playRandomSoundEffect();
       fact.textContent = getRandomFact();
     }
 
