@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Random Cat (or Dog!)</title>
+  <title>Cat & Dog (and More!)</title>
   <style>
     body {
       font-family: 'Segoe UI', sans-serif;
@@ -52,6 +52,14 @@
       background-color: #ff92a7;
     }
 
+    #hiddenMessage {
+      font-size: 0.7em;
+      color: #ccc;
+      margin-top: 1em;
+      user-select: none;
+      visibility: hidden;
+    }
+
     @media (max-width: 600px) {
       h1 {
         font-size: 1.5em;
@@ -69,6 +77,7 @@
   <img id="catImage" src="" alt="Random Animal Image" />
   <div id="catFact"></div>
   <button onclick="loadRandomAnimal()">Show Another Animal</button>
+  <div id="hiddenMessage">oli is autistic</div>
 
   <audio id="meowSound" src="https://www.fesliyanstudios.com/play-mp3/6598" preload="auto"></audio>
 
@@ -77,18 +86,25 @@
       "Cats sleep for 70% of their lives.",
       "A group of cats is called a clowder.",
       "Cats can rotate their ears 180 degrees.",
-      "The oldest known pet cat existed 9,500 years ago.",
-      "Cats have five toes on their front paws and four on the back.",
-      "A cat can jump up to six times its length.",
+      "Lions are the only cats that live in groups.",
+      "A tiger’s stripes are like fingerprints.",
+      "Fat cats are often the result of too many treats!",
+      "Dogs can smell your feelings.",
       "Isaac Newton invented the cat door.",
-      "A cat's nose print is as unique as a human fingerprint.",
-      "Adult cats only meow to humans, not other cats.",
-      "Cats have over 20 muscles that control their ears.",
-      "Dogs can learn over 1000 words and gestures.",
-      "Dogs' noses are wet to help absorb scent chemicals.",
-      "A Greyhound can beat a Cheetah in a long race.",
-      "Dogs can smell your feelings — literally.",
-      "The Basenji dog doesn’t bark, it yodels.",
+      "Adult cats only meow to humans.",
+      "Dogs can understand over 1000 words."
+    ];
+
+    const fatCats = [
+      "https://i.imgur.com/oJ1xHqH.jpeg",
+      "https://i.imgur.com/AKeJpQM.jpeg",
+      "https://i.imgur.com/NEQv8XJ.jpeg"
+    ];
+
+    const bigCats = [
+      "https://upload.wikimedia.org/wikipedia/commons/7/73/Lion_waiting_in_Namibia.jpg",
+      "https://upload.wikimedia.org/wikipedia/commons/f/fd/Tiger_in_Ranthambhore.jpg",
+      "https://upload.wikimedia.org/wikipedia/commons/f/f3/Panthera_pardus_melas.jpeg"
     ];
 
     function getRandomColor() {
@@ -105,36 +121,36 @@
       const meow = document.getElementById("meowSound");
       const fact = document.getElementById("catFact");
 
-      // Change background
       document.body.style.backgroundColor = getRandomColor();
-
-      // Fade out image before reload
       img.style.opacity = 0;
 
-      // 6% chance to show a dog
-      const isDog = Math.random() < 0.06;
-      const url = isDog
-        ? `https://placedog.net/600/400?random&t=${Date.now()}`
-        : `https://cataas.com/cat?${Date.now()}`;
+      const chance = Math.random();
+      let url = '';
+      let isCat = true;
+
+      if (chance < 0.06) {
+        url = `https://placedog.net/600/400?random&t=${Date.now()}`;
+        isCat = false;
+      } else if (chance < 0.16) {
+        url = bigCats[Math.floor(Math.random() * bigCats.length)];
+      } else if (chance < 0.26) {
+        url = fatCats[Math.floor(Math.random() * fatCats.length)];
+      } else {
+        url = `https://cataas.com/cat?${Date.now()}`;
+      }
 
       img.onload = () => {
         img.style.opacity = 1;
       };
-
       img.src = url;
 
-      // Play meow only if cat
-      if (!isDog) {
-        meow.play().catch(() => {
-          console.log("Audio blocked until user interacts.");
-        });
+      if (isCat) {
+        meow.play().catch(() => {});
       }
 
-      // Show a random fact (from both cat and dog pool)
       fact.textContent = getRandomFact();
     }
 
-    // Initial load
     window.onload = loadRandomAnimal;
   </script>
 </body>
