@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Random Cat (or Dog!)</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      text-align: center;
+      margin: 0;
+      padding: 2em;
+      transition: background-color 1s;
+      box-sizing: border-box;
+    }
+
+    h1 {
+      color: #222;
+      font-size: 1.8em;
+    }
+
+    #catImage {
+      max-width: 100%;
+      height: auto;
+      border-radius: 12px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+      opacity: 0;
+      transition: opacity 1s;
+      margin-top: 1em;
+    }
+
+    #catFact {
+      font-size: 1.1em;
+      color: #444;
+      margin: 1em auto;
+      max-width: 90%;
+    }
+
+    button {
+      margin-top: 1.5em;
+      padding: 12px 24px;
+      font-size: 1rem;
+      background-color: #ffb6c1;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      box-shadow: 2px 2px 5px rgba(0,0,0,0.2);
+      transition: background-color 0.3s;
+    }
+
+    button:hover {
+      background-color: #ff92a7;
+    }
+
+    @media (max-width: 600px) {
+      h1 {
+        font-size: 1.5em;
+      }
+
+      button {
+        width: 100%;
+        font-size: 1em;
+      }
+    }
+  </style>
+</head>
+<body>
+  <h1>Here's a Random Cat 🐱 (or Surprise Dog!)</h1>
+  <img id="catImage" src="" alt="Random Animal Image" />
+  <div id="catFact"></div>
+  <button onclick="loadRandomAnimal()">Show Another Animal</button>
+
+  <audio id="meowSound" src="https://www.fesliyanstudios.com/play-mp3/6598" preload="auto"></audio>
+
+  <script>
+    const facts = [
+      "Cats sleep for 70% of their lives.",
+      "A group of cats is called a clowder.",
+      "Cats can rotate their ears 180 degrees.",
+      "The oldest known pet cat existed 9,500 years ago.",
+      "Cats have five toes on their front paws and four on the back.",
+      "A cat can jump up to six times its length.",
+      "Isaac Newton invented the cat door.",
+      "A cat's nose print is as unique as a human fingerprint.",
+      "Adult cats only meow to humans, not other cats.",
+      "Cats have over 20 muscles that control their ears.",
+      "Dogs can learn over 1000 words and gestures.",
+      "Dogs' noses are wet to help absorb scent chemicals.",
+      "A Greyhound can beat a Cheetah in a long race.",
+      "Dogs can smell your feelings — literally.",
+      "The Basenji dog doesn’t bark, it yodels.",
+    ];
+
+    function getRandomColor() {
+      const colors = ['#ffe4e1', '#e0ffff', '#f0e68c', '#d8bfd8', '#98fb98', '#ffdab9', '#f5f5dc', '#add8e6'];
+      return colors[Math.floor(Math.random() * colors.length)];
+    }
+
+    function getRandomFact() {
+      return facts[Math.floor(Math.random() * facts.length)];
+    }
+
+    function loadRandomAnimal() {
+      const img = document.getElementById("catImage");
+      const meow = document.getElementById("meowSound");
+      const fact = document.getElementById("catFact");
+
+      // Change background
+      document.body.style.backgroundColor = getRandomColor();
+
+      // Fade out image before reload
+      img.style.opacity = 0;
+
+      // 6% chance to show a dog
+      const isDog = Math.random() < 0.06;
+      const url = isDog
+        ? `https://placedog.net/600/400?random&t=${Date.now()}`
+        : `https://cataas.com/cat?${Date.now()}`;
+
+      img.onload = () => {
+        img.style.opacity = 1;
+      };
+
+      img.src = url;
+
+      // Play meow only if cat
+      if (!isDog) {
+        meow.play().catch(() => {
+          console.log("Audio blocked until user interacts.");
+        });
+      }
+
+      // Show a random fact (from both cat and dog pool)
+      fact.textContent = getRandomFact();
+    }
+
+    // Initial load
+    window.onload = loadRandomAnimal;
+  </script>
+</body>
+</html>
